@@ -38,6 +38,15 @@ class Book(models.Model):
     def __str__(self) -> str:
         return f"{self.title} by {self.author.__str__()}"
 
+    def display_genre(self) -> str:
+        """
+        Create a string for the Genre, this is required to display Genre in admin site.
+        Only create a string out of first 3 genres to keep it readable.
+        """
+        return ", ".join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = "Genre"
+
     def get_absolute_url(self):  # REVEAL TYPE
         return revers("book-detail", args=[str(self.id)])
 
@@ -71,4 +80,4 @@ class BookInstance(models.Model):
         ordering = ["due_back"]
 
     def __str__(self) -> str:
-        return f"{self.id} by {self.title}"
+        return f"{self.id} - {self.book.title}"

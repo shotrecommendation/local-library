@@ -20,7 +20,7 @@ class Author(models.Model):
     date_of_death: date = models.DateField("Died", null=True, blank=True)
 
     class Meta:
-        ordering = ["last_name", "first_name"]
+        ordering: list[str] = ["last_name", "first_name"]
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
